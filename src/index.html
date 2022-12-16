@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/2d18db6eed.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assets/styles/styles.css" />
     <title>Good Chef</title>
   </head>
@@ -16,14 +17,34 @@
       <nav>
         <a href="#" class="home">Home</a>
         <div class="dropdown">
-          <a href="#" class="menu">Menu</a>
-          <img src="assets/images/icons8-down-24.png" alt="" />
+          <a href="#" class="menu">
+            Menu
+            <i class="fas fa-caret-down"></i>
+          </a>
+          <div class="dropdown-menu">
+            <p>Categories</p>
+            <div class="dropdown-link">
+              <a href="#" class="link">Beef</a>
+              <a href="#" class="link">Chicken</a>
+              <a href="#" class="link">Dessert</a>
+              <a href="#" class="link">Lamb</a>
+              <a href="#" class="link">Miscellaneous</a>
+              <a href="#" class="link">Pasta</a>
+              <a href="#" class="link">Pork</a>
+              <a href="#" class="link">Seafood</a>
+              <a href="#" class="link">Side</a>
+              <a href="#" class="link">Starter</a>
+              <a href="#" class="link">Vegan</a>
+              <a href="#" class="link">Vegetarian</a>
+              <a href="#" class="link">Breakfast</a>
+              <a href="#" class="link">Goat</a>
+            </div>
+          </div>
         </div>
         <a href="#" class="about">About</a>
         <img src="assets/images/shopping-cart.png" alt="cart" class="cart" />
         <div class="search-container">
-          <label for="search">Search</label>
-          <input type="text" class="search" placeholder="food name" />
+          <input type="text" class="search" placeholder="Search Food" />
           <button><img src="assets/images/icons8-search-30.png" alt="" /></button>
         </div>
       </nav>
@@ -33,19 +54,16 @@
         <article>
           <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
           <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-          <button>Explore Food</button>
+          <button>Explore Food →</button>
         </article>
       </section>
 
       <section class="menu-list">
-        <div class="see-all">
-          <h2>Our Dishes</h2>
-          <button>See all dishes</button>
-        </div>
+        <h2>Our Dishes</h2>
         <div class="food-card-container">
           <div class="food-card">
             <img src="assets/images/dummy.jpg" alt="" />
-            <div class="desc">
+            <div class="food-description">
               <p>Dummy Food</p>
               <p>Italian</p>
             </div>
@@ -56,7 +74,7 @@
           </div>
           <div class="food-card">
             <img src="assets/images/dummy.jpg" alt="" />
-            <div class="desc">
+            <div class="food-description">
               <p>Dummy Food</p>
               <p>Italian</p>
             </div>
@@ -67,7 +85,7 @@
           </div>
           <div class="food-card">
             <img src="assets/images/dummy.jpg" alt="" />
-            <div class="desc">
+            <div class="food-description">
               <p>Dummy Food</p>
               <p>Italian</p>
             </div>
@@ -78,7 +96,7 @@
           </div>
           <div class="food-card">
             <img src="assets/images/dummy.jpg" alt="" />
-            <div class="desc">
+            <div class="food-description">
               <p>Dummy Food</p>
               <p>Italian</p>
             </div>
@@ -89,7 +107,7 @@
           </div>
           <div class="food-card">
             <img src="assets/images/dummy.jpg" alt="" />
-            <div class="desc">
+            <div class="food-description">
               <p>Dummy Food</p>
               <p>Italian</p>
             </div>
@@ -100,7 +118,7 @@
           </div>
           <div class="food-card">
             <img src="assets/images/dummy.jpg" alt="" />
-            <div class="desc">
+            <div class="food-description">
               <p>Dummy Food</p>
               <p>Italian</p>
             </div>
@@ -111,7 +129,7 @@
           </div>
           <div class="food-card">
             <img src="assets/images/dummy.jpg" alt="" />
-            <div class="desc">
+            <div class="food-description">
               <p>Dummy Food</p>
               <p>Italian</p>
             </div>
@@ -122,7 +140,7 @@
           </div>
           <div class="food-card">
             <img src="assets/images/dummy.jpg" alt="" />
-            <div class="desc">
+            <div class="food-description">
               <p>Dummy Food</p>
               <p>Italian</p>
             </div>
@@ -133,7 +151,7 @@
           </div>
           <div class="food-card">
             <img src="assets/images/dummy.jpg" alt="" />
-            <div class="desc">
+            <div class="food-description">
               <p>Dummy Food</p>
               <p>Italian</p>
             </div>
@@ -144,7 +162,7 @@
           </div>
           <div class="food-card">
             <img src="assets/images/dummy.jpg" alt="" />
-            <div class="desc">
+            <div class="food-description">
               <p>Dummy Food</p>
               <p>Italian</p>
             </div>
@@ -153,12 +171,65 @@
               <button>Add to cart</button>
             </div>
           </div>
+        </div>
+        <div class="see-all">
+          <button>See All Products →</button>
         </div>
       </section>
       <section class="services">
         <h2>Our Services</h2>
+        <div class="service-logo">
+          <figure>
+            <img src="assets/images/service_logo_1.png" alt="" />
+            <figcaption>Serve Hot Appetite</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/images/service_logo_2_edited.png" alt="" />
+            <figcaption>Professional Chef</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/images/service_logo_3_edited.png" alt="" />
+            <figcaption>Fast Delivery</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/images/service_logo_4_edited.png" alt="" />
+            <figcaption>24/7 Online Service</figcaption>
+          </figure>
+        </div>
       </section>
     </main>
-    <footer>About Us</footer>
+    <footer>
+      <hr />
+      <div class="bottom-menu">
+        <div class="description">
+          <div class="logo-bottom">
+            <img src="assets/images/logo_1.png" alt="" />
+            <h3>GoodChef</h3>
+          </div>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores perferendis corrupti laborum</p>
+          <aside class="contact">
+            <img src="assets/images/github_logo.png" alt="" />
+            <img src="assets/images/mail_logo_edited.png" alt="" />
+          </aside>
+        </div>
+        <div class="main-menu-footer">
+          <h3>Main Menu</h3>
+          <li>Menus</li>
+          <li>About</li>
+        </div>
+        <div class="address">
+          <h3>Address</h3>
+          <p>Jln. Martadinata 7, Manado</p>
+          <p>9.00AM - 10.00PM</p>
+        </div>
+      </div>
+      <div class="copyright">
+        Copyright ©
+        <script>
+          document.writeln(new Date().getFullYear());
+        </script>
+        Leuchtend
+      </div>
+    </footer>
   </body>
 </html>
