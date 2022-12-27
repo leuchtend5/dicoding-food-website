@@ -26,6 +26,9 @@ checkoutButton.addEventListener('click', () => {
 // continue shopping function
 const continueShopping = document.querySelectorAll('.continue-shopping');
 const foodDetails = document.querySelector('.food-detail-content');
+const foodDetail = document.querySelector('.food-detail');
+const foodQuantity = foodDetail.querySelector('.quantity');
+let foodQuantityNumber = Number(foodQuantity.textContent);
 
 continueShopping.forEach((button) => {
   button.addEventListener('click', () => {
@@ -33,6 +36,8 @@ continueShopping.forEach((button) => {
     checkoutContent.classList.remove('active');
     foodDetails.classList.remove('active');
     bodyHtml.style.overflow = '';
+    foodQuantity.textContent = '0';
+    foodQuantityNumber = 0;
   });
 });
 
@@ -62,9 +67,6 @@ foodCard.forEach((card) => {
 });
 
 // add to cart from food details container
-const foodDetail = document.querySelector('.food-detail');
-const foodQuantity = foodDetail.querySelector('.quantity');
-let foodQuantityNumber = Number(foodQuantity.textContent);
 const addQuantityBtn = foodDetail.querySelector('.add');
 const subtractQuantityBtn = foodDetail.querySelector('.subtract');
 const addToCartBtn = foodDetail.querySelector('.add-to-cart-btn');
@@ -83,6 +85,8 @@ subtractQuantityBtn.addEventListener('click', () => {
 
 // function to add item to checkout dropdown and checkout container
 const cartItemContainer = document.querySelector('.cart-item-container');
+const cartQty = document.querySelector('.cart-qty > span');
+let cartQtyNumber = Number(cartQty.textContent);
 
 function addToCart(img, name, quantity, price) {
   const divElement = document.createElement('div');
@@ -93,8 +97,8 @@ function addToCart(img, name, quantity, price) {
   const itemNameDiv = document.createElement('div');
   const itemQtyDiv = document.createElement('div');
   const itemPriceDiv = document.createElement('div');
-  const cartQty = document.querySelector('.cart-qty > span');
 
+  // checkout dropdown element
   cartItemContainer.appendChild(cartItemDiv);
   cartItemDiv.appendChild(divElement);
   divElement.appendChild(itemImgDiv);
@@ -115,7 +119,75 @@ function addToCart(img, name, quantity, price) {
   itemNameDiv.textContent = name;
   itemQtyDiv.textContent = `Qty ${quantity}`;
   itemPriceDiv.textContent = price;
-  cartQty.textContent = quantity;
+  cartQtyNumber += quantity;
+  cartQty.textContent = cartQtyNumber;
+
+  // checkout container element
+  const tbody = document.querySelector('tbody');
+  const newRow = document.createElement('tr');
+  const productColumn = document.createElement('td');
+  const quantityColumn = document.createElement('td');
+  const editQuantityDiv = document.createElement('div');
+  const createSubtractBtn = document.createElement('button');
+  const createAddBtn = document.createElement('button');
+  const quantityDiv = document.createElement('div');
+  const priceColumn = document.createElement('td');
+  const deleteColumn = document.createElement('td');
+  const deleteBtn = document.createElement('button');
+  const tableCheckoutImgElement = document.createElement('img');
+  const tableCheckoutFoodName = document.createElement('div');
+
+  tbody.appendChild(newRow);
+  newRow.appendChild(productColumn);
+  productColumn.appendChild(tableCheckoutImgElement);
+  productColumn.appendChild(tableCheckoutFoodName);
+  newRow.appendChild(quantityColumn);
+  quantityColumn.appendChild(editQuantityDiv);
+  editQuantityDiv.appendChild(createSubtractBtn);
+  editQuantityDiv.appendChild(quantityDiv);
+  editQuantityDiv.appendChild(createAddBtn);
+  newRow.appendChild(priceColumn);
+  newRow.appendChild(deleteColumn);
+  deleteColumn.appendChild(deleteBtn);
+
+  productColumn.classList.add('item');
+  quantityColumn.classList.add('edit-quantity-container');
+  tableCheckoutFoodName.classList.add('food-name');
+  editQuantityDiv.classList.add('edit-quantity');
+  createSubtractBtn.classList.add('subtract');
+  quantityDiv.classList.add('quantity');
+  createAddBtn.classList.add('add');
+  priceColumn.classList.add('price');
+
+  deleteBtn.textContent = 'x';
+  createSubtractBtn.textContent = '-';
+  createAddBtn.textContent = '+';
+
+  tableCheckoutImgElement.src = img;
+  tableCheckoutFoodName.textContent = name;
+  quantityDiv.textContent = `${quantity}`;
+  priceColumn.textContent = price;
+
+  const checkoutTableRows = document.querySelectorAll('tbody > tr');
+
+  checkoutTableRows.forEach((row) => {
+    const quantityCount = row.querySelector('.quantity');
+    const addBtn = row.querySelector('.add');
+    const subtractBtn = row.querySelector('.subtract');
+    let quantityCountNumber = Number(quantityCount.textContent);
+
+    addBtn.addEventListener('click', () => {
+      quantityCountNumber += 1;
+      quantityCount.textContent = quantityCountNumber;
+    });
+
+    subtractBtn.addEventListener('click', () => {
+      if (quantityCountNumber > 0) {
+        quantityCountNumber -= 1;
+        quantityCount.textContent = quantityCountNumber;
+      }
+    });
+  });
 }
 
 addToCartBtn.addEventListener('click', () => {
@@ -125,25 +197,4 @@ addToCartBtn.addEventListener('click', () => {
 });
 
 // cart icon count
-const cartCount = document.querySelector('.notif');
-
-const checkoutTableRows = document.querySelectorAll('tbody > tr');
-
-checkoutTableRows.forEach((row) => {
-  const quantityCount = row.querySelector('.quantity');
-  const addBtn = row.querySelector('.add');
-  const subtractBtn = row.querySelector('.subtract');
-  let quantityCountNumber = Number(quantityCount.textContent);
-
-  addBtn.addEventListener('click', () => {
-    quantityCountNumber += 1;
-    quantityCount.textContent = quantityCountNumber;
-  });
-
-  subtractBtn.addEventListener('click', () => {
-    if (quantityCountNumber > 0) {
-      quantityCountNumber -= 1;
-      quantityCount.textContent = quantityCountNumber;
-    }
-  });
-});
+// const cartCount = document.querySelector('.notif');
