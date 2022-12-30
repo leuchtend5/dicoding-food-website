@@ -1,4 +1,37 @@
-// nav menu
+const checkoutFoodListArray = [];
+const tbody = document.querySelector('tbody');
+const subTotal = document.querySelector('.subtotal');
+const allItemPrice = document.querySelector('.total-all-item');
+const cartCount = document.querySelector('.notif');
+let totalQuantity = 0;
+let totalPrice = 0;
+
+// SHOW CART NOTIF (RED DOT)
+function showCartNotif() {
+  if (cartCount.textContent !== '0') {
+    cartCount.classList.add('active');
+  } else {
+    cartCount.classList.remove('active');
+  }
+}
+
+// FUNCTION TO CONVERT NUMBER INTO IDR
+function convertToRupiah(num) {
+  const newCurrency = Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    maximumFractionDigits: 0,
+  }).format(num);
+  return newCurrency;
+}
+
+function countTotal() {
+  totalPrice = totalQuantity * 50000;
+  subTotal.textContent = convertToRupiah(totalPrice);
+  allItemPrice.textContent = subTotal.textContent;
+}
+
+// NAV MENU
 const menus = document.querySelectorAll('nav > li > a');
 
 menus.forEach((menu) => {
@@ -11,7 +44,6 @@ menus.forEach((menu) => {
   });
 });
 
-// show cart container
 const bodyHtml = document.querySelector('body');
 const checkoutButton = document.querySelector('.checkout');
 const blurBg = document.querySelector('.blur-bg');
@@ -23,7 +55,7 @@ checkoutButton.addEventListener('click', () => {
   bodyHtml.style.overflow = 'hidden';
 });
 
-// continue shopping function
+// CONTINUE SHOPPING
 const continueShopping = document.querySelectorAll('.continue-shopping');
 const foodDetails = document.querySelector('.food-detail-content');
 const foodDetail = document.querySelector('.food-detail');
@@ -41,12 +73,12 @@ continueShopping.forEach((button) => {
   });
 });
 
-// food details when click
+// FOOD DETAIL WHEN CLICKED
 const foodCard = document.querySelectorAll('.food-card');
 const foodImgSrc = foodDetails.querySelector('img');
 const foodName = foodDetails.querySelector('h3');
 const foodCategory = foodDetails.querySelector('p:nth-child(2)');
-const foodPrice = foodDetails.querySelector('p:nth-child(3)');
+const foodPrice = foodDetails.querySelector('p:nth-child(3) > span');
 
 foodCard.forEach((card) => {
   card.addEventListener('click', () => {
@@ -58,7 +90,7 @@ foodCard.forEach((card) => {
     foodImgSrc.src = cardImgSrc.src;
     foodName.textContent = nameElement.textContent;
     foodCategory.textContent = categoryElement.textContent;
-    foodPrice.textContent = `Rp ${priceElement.textContent}`;
+    foodPrice.textContent = priceElement.textContent;
 
     blurBg.classList.add('active');
     foodDetails.classList.add('active');
@@ -66,7 +98,7 @@ foodCard.forEach((card) => {
   });
 });
 
-// add to cart from food details container
+// ADD TO CART FROM FOOD DETAIL CONTAINER
 const addQuantityBtn = foodDetail.querySelector('.add');
 const subtractQuantityBtn = foodDetail.querySelector('.subtract');
 const addToCartBtn = foodDetail.querySelector('.add-to-cart-btn');
@@ -83,12 +115,15 @@ subtractQuantityBtn.addEventListener('click', () => {
   }
 });
 
-// function to add item to checkout dropdown and checkout container
+function checkSameFood(itemName) {
+  return checkoutFoodListArray.some((food) => food.name === itemName);
+}
+
+// CHECKOUT DROPDOWN CONTAINER
 const cartItemContainer = document.querySelector('.cart-item-container');
 const cartQty = document.querySelector('.cart-qty > span');
-let cartQtyNumber = Number(cartQty.textContent);
 
-function addToCart(img, name, quantity, price) {
+function showAllItemInDropDownMenu(newItem) {
   const divElement = document.createElement('div');
   const cartItemDiv = document.createElement('div');
   const itemImgDiv = document.createElement('div');
@@ -96,9 +131,10 @@ function addToCart(img, name, quantity, price) {
   const itemDescDiv = document.createElement('div');
   const itemNameDiv = document.createElement('div');
   const itemQtyDiv = document.createElement('div');
+  const itemQtySpan = document.createElement('span');
   const itemPriceDiv = document.createElement('div');
+  const eachItemPrice = newItem.price * newItem.quantity;
 
-  // checkout dropdown element
   cartItemContainer.appendChild(cartItemDiv);
   cartItemDiv.appendChild(divElement);
   divElement.appendChild(itemImgDiv);
@@ -115,15 +151,31 @@ function addToCart(img, name, quantity, price) {
   itemQtyDiv.classList.add('item-qty');
   itemPriceDiv.classList.add('cart-price');
 
-  imgElement.src = img;
-  itemNameDiv.textContent = name;
-  itemQtyDiv.textContent = `Qty ${quantity}`;
-  itemPriceDiv.textContent = price;
-  cartQtyNumber += quantity;
-  cartQty.textContent = cartQtyNumber;
+  imgElement.src = newItem.img;
+  itemNameDiv.textContent = newItem.name;
+  itemQtyDiv.textContent = 'Qty ';
+  itemQtySpan.textContent = `${newItem.quantity}`;
+  itemQtyDiv.insertAdjacentElement('beforeend', itemQtySpan);
+  itemPriceDiv.textContent = convertToRupiah(eachItemPrice);
+}
 
-  // checkout container element
-  const tbody = document.querySelector('tbody');
+// REFRESH CONTENT
+
+function refreshItemDropDown() {
+  while (cartItemContainer.firstChild) {
+    cartItemContainer.removeChild(cartItemContainer.firstChild);
+  }
+}
+
+function refreshItemCheckout() {
+  while (tbody.firstChild) {
+    tbody.removeChild(tbody.firstChild);
+  }
+}
+
+// CHECKOUT ALL ITEM CONTAINER
+
+function showAllItemInCheckout(newItem) {
   const newRow = document.createElement('tr');
   const productColumn = document.createElement('td');
   const quantityColumn = document.createElement('td');
@@ -163,10 +215,9 @@ function addToCart(img, name, quantity, price) {
   createSubtractBtn.textContent = '-';
   createAddBtn.textContent = '+';
 
-  tableCheckoutImgElement.src = img;
-  tableCheckoutFoodName.textContent = name;
-  quantityDiv.textContent = `${quantity}`;
-  priceColumn.textContent = price;
+  tableCheckoutImgElement.src = newItem.img;
+  tableCheckoutFoodName.textContent = newItem.name;
+  quantityDiv.textContent = newItem.quantity;
 
   const checkoutTableRows = document.querySelectorAll('tbody > tr');
 
@@ -174,27 +225,85 @@ function addToCart(img, name, quantity, price) {
     const quantityCount = row.querySelector('.quantity');
     const addBtn = row.querySelector('.add');
     const subtractBtn = row.querySelector('.subtract');
+    const priceColumnEachRow = row.querySelector('.price');
+    const foodNameEachRow = row.querySelector('.food-name');
     let quantityCountNumber = Number(quantityCount.textContent);
+    let totalPriceInTable = quantityCountNumber * newItem.price;
+
+    priceColumnEachRow.textContent = convertToRupiah(totalPriceInTable);
+
+    function setQuantityAndPrice() {
+      totalPriceInTable = quantityCountNumber * newItem.price;
+      quantityCount.textContent = quantityCountNumber;
+      priceColumnEachRow.textContent = convertToRupiah(totalPriceInTable);
+
+      const findFood = checkoutFoodListArray.find((food) => food.name === foodNameEachRow.textContent);
+      findFood.quantity = quantityCountNumber;
+    }
 
     addBtn.addEventListener('click', () => {
       quantityCountNumber += 1;
-      quantityCount.textContent = quantityCountNumber;
+      setQuantityAndPrice();
+      refreshItemDropDown();
+      totalQuantity = 0;
+      cartCount.textContent = '';
+      checkoutFoodListArray.forEach((food) => {
+        showAllItemInDropDownMenu(food);
+        totalQuantity += food.quantity;
+      });
+      cartQty.textContent = totalQuantity;
+      cartCount.textContent = totalQuantity;
+      showCartNotif();
+      countTotal();
     });
 
     subtractBtn.addEventListener('click', () => {
-      if (quantityCountNumber > 0) {
+      if (quantityCountNumber > 1) {
         quantityCountNumber -= 1;
-        quantityCount.textContent = quantityCountNumber;
+        setQuantityAndPrice();
+        refreshItemDropDown();
+        totalQuantity = 0;
+        cartCount.textContent = '';
+        checkoutFoodListArray.forEach((food) => {
+          showAllItemInDropDownMenu(food);
+          totalQuantity += food.quantity;
+        });
+        cartQty.textContent = totalQuantity;
+        cartCount.textContent = totalQuantity;
+        showCartNotif();
+        countTotal();
       }
     });
   });
 }
 
-addToCartBtn.addEventListener('click', () => {
-  if (foodQuantityNumber > 0) {
-    addToCart(foodImgSrc.src, foodName.textContent, foodQuantityNumber, foodPrice.textContent);
-  }
-});
+function addToCart(itemImg, itemName, itemQuantity, itemPrice) {
+  const newItem = {
+    img: itemImg,
+    name: itemName,
+    quantity: itemQuantity,
+    price: itemPrice,
+  };
 
-// cart icon count
-// const cartCount = document.querySelector('.notif');
+  if (itemQuantity > 0 && !checkSameFood(itemName)) {
+    checkoutFoodListArray.push(newItem);
+  }
+
+  refreshItemDropDown();
+  refreshItemCheckout();
+  totalQuantity = 0;
+  cartCount.textContent = '0';
+  checkoutFoodListArray.forEach((food) => {
+    showAllItemInDropDownMenu(food);
+    showAllItemInCheckout(food);
+    totalQuantity += food.quantity;
+  });
+  cartQty.textContent = totalQuantity;
+  cartCount.textContent = totalQuantity;
+  showCartNotif();
+  countTotal();
+}
+
+addToCartBtn.addEventListener('click', () => {
+  addToCart(foodImgSrc.src, foodName.textContent, foodQuantityNumber, Number(foodPrice.textContent.replace('.', '')));
+});

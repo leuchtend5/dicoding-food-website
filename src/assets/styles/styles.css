@@ -358,9 +358,9 @@ article > a > button {
   padding: 10px 0px;
   box-shadow: 0px 8px 12px 0px rgba(0, 0, 0, 0.05);
   cursor: pointer;
-  transition: 0.5s;
+  transition: 0.2s;
   animation-name: animate-pop;
-  animation-duration: 0.5s;
+  animation-duration: 0.25s;
   font-family: content-font;
   color: var(--brown-font-color);
 }
