@@ -11,6 +11,19 @@
     "sourceType": "module"
   },
   "rules": {
-    "max-len": ["error", { "code": 120 }]
+    "max-len": ["error", { "code": 150 }],
+    "no-console": "off",
+    "no-underscore-dangle": "off",
+    "no-plusplus": "off",
+    "no-await-in-loop": "off",
+    "import/extensions": ["error", "always", { "ignorePackages": true }],
+    "prefer-destructuring": ["error", { "object": true, "array": false }],
+    "object-curly-newline": [
+      "error",
+      {
+        "ImportDeclaration": "never"
+      }
+    ],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
   }
 }

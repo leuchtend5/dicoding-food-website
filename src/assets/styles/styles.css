@@ -7,15 +7,12 @@
   --height-checkout: 68vh;
 }
 
-@keyframes animate-pop {
+@keyframes spin {
   from {
-    opacity: 0;
-    transform: scale(0.5);
+    transform: rotate(0deg);
   }
-
   to {
-    opacity: 1;
-    transform: scale(1);
+    transform: rotate(360deg);
   }
 }
 
@@ -48,7 +45,7 @@ header {
   position: fixed;
   padding: 5px 50px;
   color: black;
-  width: calc(100% - 100px); /* 20px merupakan padding dari body */
+  width: calc(100% - 100px);
   z-index: 1;
 }
 
@@ -56,7 +53,7 @@ header {
   border-bottom: 1px solid black;
 }
 
-.search-container > button {
+.search-btn {
   border: none;
   background-color: #f6eedf;
   cursor: pointer;
@@ -237,6 +234,7 @@ a:hover + .dropdown-menu,
 .cart-item {
   display: flex;
   justify-content: space-between;
+  gap: 5px;
 }
 
 .cart-item > div:nth-child(1) {
@@ -256,8 +254,7 @@ a:hover + .dropdown-menu,
 }
 
 .checkout:hover,
-article > a > button:hover,
-.see-all > a > button:hover,
+.all-food-list:hover,
 .add-to-cart-btn:hover {
   filter: brightness(95%);
 }
@@ -275,6 +272,11 @@ main {
   background-size: cover;
   box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.3);
   height: 100vh;
+}
+
+.homepage.active,
+.services.active {
+  display: none;
 }
 
 article {
@@ -299,7 +301,7 @@ article > p {
   font-size: 2rem;
 }
 
-article > a > button {
+.all-food-list {
   width: 170px;
   height: 40px;
   font-size: 1.3rem;
@@ -311,11 +313,19 @@ article > a > button {
   cursor: pointer;
 }
 
+.see-all > .all-food-list {
+  font-size: 1.1rem;
+}
+
 .food-list {
   padding: var(--padding-content);
   display: flex;
   flex-direction: column;
   gap: 30px;
+}
+
+.food-list.active {
+  display: none;
 }
 
 .food-list > h2 {
@@ -328,65 +338,17 @@ article > a > button {
   text-align: center;
 }
 
-.see-all > a > button {
-  width: 170px;
-  height: 40px;
-  font-size: 1.1rem;
-  font-family: content-font;
-  border-radius: 10px;
-  border: none;
-  background-color: var(--yellow-color);
-  cursor: pointer;
-  box-shadow: 0px 8px 12px 0px rgba(0, 0, 0, 0.05);
-}
-
 .food-card-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 18px;
-}
-
-.food-card {
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  justify-content: center;
-  align-items: center;
-  width: 250px;
-  border-radius: 10px;
-  gap: 20px;
-  padding: 10px 0px;
-  box-shadow: 0px 8px 12px 0px rgba(0, 0, 0, 0.05);
-  cursor: pointer;
-  transition: 0.2s;
-  animation-name: animate-pop;
-  animation-duration: 0.25s;
-  font-family: content-font;
-  color: var(--brown-font-color);
-}
-
-.food-card:hover {
-  transform: scale(1.03);
-  filter: brightness(95%);
-}
-
-.food-card > img {
-  width: 200px;
-  border-radius: 10px;
-}
-
-.food-description {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 7px;
 }
 
 .services {
   display: flex;
+  align-items: center;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   gap: 50px;
   margin: 0px 50px;
   border-radius: 10px;
@@ -577,6 +539,10 @@ tr > th:nth-child(1) {
   width: 430px;
 }
 
+tr > td:nth-child(4) {
+  text-align: center;
+}
+
 td {
   padding: 8px 0px;
 }
@@ -589,7 +555,7 @@ td {
 .checkout-item-list {
   border-bottom: 1px solid rgba(200, 200, 200, 0.4);
   overflow: auto;
-  height: 500px;
+  height: 53vh;
   scrollbar-width: thin;
 }
 
@@ -626,6 +592,7 @@ td > button {
   background-color: white;
   font-size: 0.9rem;
   cursor: pointer;
+  margin-top: auto;
 }
 
 .continue-shopping:hover {
@@ -689,7 +656,7 @@ td > button {
   grid-template-columns: 1fr 1fr;
   width: 500px;
   height: 300px;
-  top: calc(50% - 195px);
+  top: calc(50% - 170px);
   left: calc(50% - 270px);
   background-color: white;
   border-radius: 10px;
@@ -724,6 +691,10 @@ td > button {
 .food-detail p {
   text-align: center;
   font-size: 1rem;
+}
+
+.food-detail h3 {
+  text-align: center;
 }
 
 .set-quantity {
@@ -766,4 +737,256 @@ td > button {
   border-radius: 10px;
   cursor: pointer;
   font-family: content-font;
+}
+
+.loading {
+  width: 40px;
+  height: 40px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid var(--yellow-color);
+  border-radius: 100%;
+  margin: auto;
+  display: none;
+  animation: spin 1s infinite linear;
+  z-index: 2;
+  position: fixed;
+  top: calc(50% - 25px);
+  left: calc(50% - 25px);
+}
+
+.loading.active {
+  display: flex;
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+.fa-bars {
+  font-size: 1.3rem;
+}
+
+.hamburger-menu-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  right: -200%;
+  top: 60px;
+  background-color: rgba(246, 238, 223, 1);
+  height: 100vh;
+  width: 100vw;
+  transition: right 0.3s ease-in-out;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.hamburger-menu-container.active {
+  right: 0%;
+}
+
+@media screen and (max-width: 860px) {
+  header {
+    padding: 5px 25px;
+    width: calc(100% - 40px);
+  }
+
+  nav {
+    gap: 15px;
+    margin-right: 10px;
+  }
+
+  .dropdown-cart-container {
+    right: 20px;
+  }
+
+  .checkout-content {
+    left: calc(50% - (95vw / 2));
+    width: 95vw;
+  }
+
+  .left-content {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 20px;
+  }
+
+  .right-content-container {
+    padding-right: 20px;
+  }
+}
+
+@media screen and (max-width: 680px), screen and (max-height: 760px) {
+  header {
+    padding: 5px 10px;
+    width: calc(100% - 20px);
+  }
+
+  nav {
+    gap: 10px;
+    margin-right: 8px;
+  }
+
+  .search-container {
+    width: 130px;
+  }
+
+  .search {
+    width: 108px;
+  }
+
+  .food-card-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .food-list > h2 {
+    text-align: center;
+    font-size: 2.5rem;
+  }
+
+  .service-logo {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  article,
+  .food-list,
+  footer {
+    padding: 0px 10px;
+  }
+
+  article > h1 {
+    font-size: 3rem;
+  }
+
+  article > p {
+    font-size: 1.5rem;
+  }
+
+  .all-food-list {
+    width: 160px;
+    height: 30px;
+    font-size: 1.2rem;
+  }
+
+  .services {
+    margin: 0px 10px;
+  }
+
+  .food-detail-content {
+    width: 450px;
+    height: 250px;
+    top: calc(50% - 135px);
+    left: calc(50% - 235px);
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .food-detail-content img {
+    width: 250px;
+  }
+
+  .food-detail h3,
+  .food-detail p {
+    margin-bottom: 8px;
+  }
+
+  .food-detail {
+    gap: 5px;
+  }
+
+  .left-content > h2 {
+    font-size: 1.2rem;
+  }
+
+  .right-content > button {
+    font-size: 0.7rem;
+  }
+
+  .right-content,
+  .total,
+  .checkout-item-list,
+  .left-content > button {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 590px) {
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+  }
+
+  nav {
+    margin-left: auto;
+  }
+
+  header {
+    gap: 10px;
+  }
+
+  nav .home,
+  nav .menu,
+  nav .about {
+    display: none;
+  }
+
+  .dropdown-cart-container {
+    width: 350px;
+    z-index: 2;
+  }
+
+  .food-detail-content {
+    width: 350px;
+    height: 210px;
+    top: calc(50% - 105px);
+    left: calc(50% - 185px);
+  }
+
+  .food-detail-content img {
+    width: 150px;
+    align-self: center;
+  }
+
+  .food-detail {
+    font-size: 0.9rem;
+  }
+
+  .food-detail p {
+    font-size: 0.8rem;
+  }
+
+  .continue-shopping {
+    font-size: 0.8rem;
+  }
+
+  .checkout-content {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .right-content-container {
+    padding: 10px 0;
+    width: 400px;
+  }
+
+  .right-content {
+    min-height: 10vh;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .checkout-item-list {
+    height: 30vh;
+  }
+
+  .checkout-total,
+  .shipping {
+    padding-bottom: 5px;
+  }
 }

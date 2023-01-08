@@ -5,14 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://kit.fontawesome.com/2d18db6eed.js" crossorigin="anonymous"></script>
-    <script src="script/script.js" defer></script>
-    <link rel="stylesheet" href="assets/styles/styles.css" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Good Chef</title>
   </head>
   <body>
     <header>
       <div class="logo">
-        <img src="assets/images/logo_1.png" alt="logo" />
+        <img id="logo" alt="logo" />
         <p>GoodChef</p>
       </div>
       <nav>
@@ -45,9 +44,15 @@
         </li>
         <li><a href="#" class="about">About</a></li>
         <li>
+          <div class="search-container">
+            <input type="text" class="search" placeholder="Search Food" />
+            <button class="search-btn"><img id="search-icon" alt="" /></button>
+          </div>
+        </li>
+        <li>
           <div class="cart-notif">
             <i class="fa-solid fa-cart-shopping"></i>
-            <span class="notif">11</span>
+            <span class="notif"></span>
           </div>
           <div class="dropdown-cart-container">
             <div class="dropdown-cart">
@@ -55,144 +60,50 @@
               <button class="checkout">Checkout</button>
             </div>
             <hr />
-            <div class="cart-item-container">
-              <!-- <div class="cart-item">
-                <div>
-                  <div class="item-img">
-                    <img src="assets/images/dummy.jpg" alt="" />
-                  </div>
-                  <div class="item-desc">
-                    <div class="item-name">Dummy Dummy Dummy Food</div>
-                    <div class="item-qty">Qty 1</div>
-                  </div>
-                </div>
-                <div class="cart-price">Rp. 25.000</div>
-              </div> -->
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="search-container">
-            <input type="text" class="search" placeholder="Search Food" />
-            <button><img src="assets/images/icons8-search-30.png" alt="" /></button>
+            <div class="cart-item-container"></div>
           </div>
         </li>
       </nav>
+      <div class="hamburger"><i class="fa-solid fa-bars"></i></div>
+      <div class="hamburger-menu-container">
+        <a href="#" class="home">Home</a>
+        <a href="#" class="">Menu</a>
+        <a href="#" class="about">About</a>
+      </div>
     </header>
     <main>
       <section class="homepage" id="home">
         <article>
           <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
           <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-          <a href="food-list.html"><button>Explore Food →</button></a>
+          <button class="all-food-list">Explore Food →</button>
         </article>
       </section>
 
       <section class="food-list">
         <h2>Popular Dishes</h2>
-        <div class="food-card-container">
-          <div class="food-card">
-            <img src="assets/images/dummy_1.jpg" alt="" />
-            <div class="food-description">
-              <p>Dummy Food 01</p>
-              <p>Category</p>
-              <p>Rp <span>50.000</span></p>
-            </div>
-          </div>
-          <div class="food-card">
-            <img src="assets/images/dummy.jpg" alt="" />
-            <div class="food-description">
-              <p>Dummy Food 02</p>
-              <p>Category</p>
-              <p>Rp <span>50.000</span></p>
-            </div>
-          </div>
-          <div class="food-card">
-            <img src="assets/images/dummy.jpg" alt="" />
-            <div class="food-description">
-              <p>Dummy Food 03</p>
-              <p>Category</p>
-              <p>Rp <span>50.000</span></p>
-            </div>
-          </div>
-          <div class="food-card">
-            <img src="assets/images/dummy.jpg" alt="" />
-            <div class="food-description">
-              <p>Dummy Food</p>
-              <p>Category</p>
-              <p>Rp <span>50.000</span></p>
-            </div>
-          </div>
-          <div class="food-card">
-            <img src="assets/images/dummy.jpg" alt="" />
-            <div class="food-description">
-              <p>Dummy Food</p>
-              <p>Category</p>
-              <p>Rp <span>50.000</span></p>
-            </div>
-          </div>
-          <div class="food-card">
-            <img src="assets/images/dummy.jpg" alt="" />
-            <div class="food-description">
-              <p>Dummy Food</p>
-              <p>Category</p>
-              <p>Rp <span>50.000</span></p>
-            </div>
-          </div>
-          <div class="food-card">
-            <img src="assets/images/dummy.jpg" alt="" />
-            <div class="food-description">
-              <p>Dummy Food</p>
-              <p>Category</p>
-              <p>Rp <span>50.000</span></p>
-            </div>
-          </div>
-          <div class="food-card">
-            <img src="assets/images/dummy.jpg" alt="" />
-            <div class="food-description">
-              <p>Dummy Food</p>
-              <p>Category</p>
-              <p>Rp <span>50.000</span></p>
-            </div>
-          </div>
-          <div class="food-card">
-            <img src="assets/images/dummy.jpg" alt="" />
-            <div class="food-description">
-              <p>Dummy Food</p>
-              <p>Category</p>
-              <p>Rp <span>50.000</span></p>
-            </div>
-          </div>
-          <div class="food-card">
-            <img src="assets/images/dummy.jpg" alt="" />
-            <div class="food-description">
-              <p>Dummy Food</p>
-              <p>Category</p>
-              <p>Rp <span>50.000</span></p>
-            </div>
-          </div>
-        </div>
+        <div class="food-card-container"></div>
         <div class="see-all">
-          <a href="food-list.html"><button>See All Products →</button></a>
+          <button class="all-food-list">See All Products →</button>
         </div>
       </section>
       <section class="services">
         <h2>Our Services</h2>
         <div class="service-logo">
           <figure>
-            <img src="assets/images/service_logo_1.png" alt="" />
+            <img id="service-logo-one" alt="" />
             <figcaption>Serve Hot Appetite</figcaption>
           </figure>
           <figure>
-            <img src="assets/images/service_logo_2_edited.png" alt="" />
+            <img id="service-logo-two" alt="" />
             <figcaption>Professional Chef</figcaption>
           </figure>
           <figure>
-            <img src="assets/images/service_logo_3_edited.png" alt="" />
+            <img id="service-logo-three" alt="" />
             <figcaption>Fast Delivery</figcaption>
           </figure>
           <figure>
-            <img src="assets/images/service_logo_4_edited.png" alt="" />
+            <img id="service-logo-four" alt="" />
             <figcaption>24/7 Online Service</figcaption>
           </figure>
         </div>
@@ -203,19 +114,19 @@
       <div class="bottom-menu" id="about">
         <div class="description">
           <div class="logo-bottom">
-            <img src="assets/images/logo_1.png" alt="" />
+            <img id="logo" alt="" />
             <h3>GoodChef</h3>
           </div>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores perferendis corrupti laborum</p>
           <aside class="contact">
             <div class="github-logo">
               <a href="https://github.com/leuchtend5">
-                <img src="assets/images/github_logo.png" alt="" />
+                <img id="github-icon" alt="" />
               </a>
             </div>
             <div class="email-logo">
               <a href="mailto: gilbertyohanes95@gmail.com">
-                <img src="assets/images/mail_logo_edited.png" alt="" />
+                <img id="email-icon" alt="" />
               </a>
             </div>
           </aside>
@@ -249,23 +160,7 @@
                 <th>&nbsp;</th>
               </tr>
             </thead>
-            <tbody>
-              <!-- <tr>
-                <td class="item">
-                  <img src="assets/images/dummy.jpg" alt="" />
-                  <div class="food-name">Dummy dummy dummy dummy dummy Food</div>
-                </td>
-                <td class="edit-quantity-container">
-                  <div class="edit-quantity">
-                    <button class="subtract">-</button>
-                    <div class="quantity">0</div>
-                    <button class="add">+</button>
-                  </div>
-                </td>
-                <td class="price">Rp 25.000</td>
-                <td><button>x</button></td>
-              </tr> -->
-            </tbody>
+            <tbody></tbody>
           </table>
         </div>
         <button class="continue-shopping">← Continue Shopping</button>
@@ -286,7 +181,13 @@
               <h3 class="total-all-item">0</h3>
             </div>
           </div>
-          <button>Proceed to checkout</button>
+          <button id="proceed-to-checkout">Proceed to checkout</button>
+          <script>
+            const proceedToCheckoutBtn = document.getElementById('proceed-to-checkout');
+            proceedToCheckoutBtn.addEventListener('click', () => {
+              Swal.fire('Transactions success');
+            });
+          </script>
         </div>
       </div>
     </div>
@@ -311,5 +212,6 @@
         </div>
       </div>
     </div>
+    <div class="loading"></div>
   </body>
 </html>
