@@ -34,6 +34,9 @@
 
 body {
   background-color: #f6eedf;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 header {
@@ -390,6 +393,8 @@ footer {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  margin-top: auto;
+  justify-self: flex-end;
 }
 
 hr {
@@ -459,10 +464,6 @@ hr {
   align-items: center;
   padding-top: 10px;
   gap: 20px;
-}
-
-.main-menu-footer > li {
-  list-style-type: none;
 }
 
 .copyright {

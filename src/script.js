@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 import { fetchPopularFood, fetchAllFood, fetchFoodByCategory, fetchFoodByName, allFoodElement } from './script/data/data-source.js';
 import { foodDetails, blurBg, bodyHtml, foodImgSrc, foodName, foodPrice } from './script/view/clicked-item.js';
 import './assets/styles/styles.css';
@@ -43,8 +44,11 @@ const serviceLogoThree = document.getElementById('service-logo-three');
 const serviceLogoFour = document.getElementById('service-logo-four');
 const githubIcon = document.getElementById('github-icon');
 const emailIcon = document.getElementById('email-icon');
+const test = document.getElementById('proceed-to-checkout');
+const logoBottom = document.getElementById('logo-bottom');
 
 logoImg.src = logo;
+logoBottom.src = logo;
 searchIcon.src = search;
 serviceLogoOne.src = serviceOne;
 serviceLogoTwo.src = serviceTwo;
@@ -57,6 +61,16 @@ let hamburgerBtnToggle = true;
 let foodQuantityNumber = Number(foodQuantity.textContent);
 let totalQuantity = 0;
 let totalPrice = 0;
+
+test.addEventListener('click', () => {
+  Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'Transactions Success',
+    showConfirmButton: false,
+    timer: 1500,
+  });
+});
 
 hamburgerBtn.addEventListener('click', () => {
   if (hamburgerBtnToggle) {
@@ -424,6 +438,8 @@ function addToCart(itemImg, itemName, itemQuantity, itemPrice) {
 
   if (itemQuantity > 0 && !checkSameFood(itemName)) {
     checkoutFoodListArray.push(newItem);
+  } else {
+    Swal.fire('This food already in the cart');
   }
 
   refreshItemDropDown();
