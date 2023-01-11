@@ -36,8 +36,8 @@ class AllFood extends HTMLElement {
         }
 
         .food-card-container {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          display: flex;
+          flex-wrap: wrap;
           gap: 18px;
         }
 
@@ -47,10 +47,6 @@ class AllFood extends HTMLElement {
         }
 
         @media screen and (max-width: 680px) {
-          .food-card-container {
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-          }
-
           .all-food {
             padding: 0px 10px;
           }
@@ -58,7 +54,6 @@ class AllFood extends HTMLElement {
 
         @media screen and (max-width: 590px) {
           .food-card-container {
-            display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;

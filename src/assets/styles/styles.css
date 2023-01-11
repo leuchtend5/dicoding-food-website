@@ -332,6 +332,7 @@ article > p {
 }
 
 .food-list > h2 {
+  text-align: center;
   font-family: title-font;
   font-size: var(--h2-font-size);
   color: var(--brown-font-color);
@@ -342,9 +343,10 @@ article > p {
 }
 
 .food-card-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 18px;
+  justify-content: center;
 }
 
 .services {
